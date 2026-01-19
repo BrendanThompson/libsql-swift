@@ -384,7 +384,11 @@ public class Database {
         }
     }
 
-    public init(url: String, authToken: String, withWebpki: Bool = false) throws {
+    public init(
+        url: String,
+        authToken: String,
+        withWebpki: Bool = false
+    ) throws {
         self.inner = try url.withCString { url in
             try authToken.withCString { authToken in
                 var desc = libsql_database_desc_t()
@@ -401,7 +405,13 @@ public class Database {
 
     }
 
-    public init(path: String, url: String, authToken: String, withWebpki: Bool = false) throws {
+    public init(
+        path: String,
+        url: String,
+        authToken: String,
+        syncInterval: UInt64 = 0,
+        withWebpki: Bool = false
+    ) throws {
         self.inner = try path.withCString { path in
             try url.withCString { url in
                 try authToken.withCString { authToken in
@@ -409,6 +419,7 @@ public class Database {
                     desc.path = path
                     desc.url = url
                     desc.auth_token = authToken
+                    desc.sync_interval = syncInterval
                     desc.webpki = withWebpki
 
                     let db = libsql_database_init(desc)
