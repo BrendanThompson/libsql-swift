@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>AvailableLibraries</key>
@@ -27,6 +28,22 @@
 			<key>HeadersPath</key>
 			<string>Headers</string>
 			<key>LibraryIdentifier</key>
+			<string>ios-arm64</string>
+			<key>LibraryPath</key>
+			<string>liblibsql.a</string>
+			<key>SupportedArchitectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>SupportedPlatform</key>
+			<string>ios</string>
+		</dict>
+		<dict>
+			<key>BinaryPath</key>
+			<string>liblibsql.a</string>
+			<key>HeadersPath</key>
+			<string>Headers</string>
+			<key>LibraryIdentifier</key>
 			<string>ios-arm64_x86_64-simulator</string>
 			<key>LibraryPath</key>
 			<string>liblibsql.a</string>
@@ -46,15 +63,31 @@
 			<key>HeadersPath</key>
 			<string>Headers</string>
 			<key>LibraryIdentifier</key>
-			<string>ios-arm64</string>
+			<string>linux-x86_64</string>
 			<key>LibraryPath</key>
 			<string>liblibsql.a</string>
 			<key>SupportedArchitectures</key>
 			<array>
-				<string>arm64</string>
+				<string>x86_64</string>
 			</array>
 			<key>SupportedPlatform</key>
-			<string>ios</string>
+			<string>linux</string>
+		</dict>
+		<dict>
+			<key>BinaryPath</key>
+			<string>liblibsql.a</string>
+			<key>HeadersPath</key>
+			<string>Headers</string>
+			<key>LibraryIdentifier</key>
+			<string>linux-aarch64</string>
+			<key>LibraryPath</key>
+			<string>liblibsql.a</string>
+			<key>SupportedArchitectures</key>
+			<array>
+				<string>aarch64</string>
+			</array>
+			<key>SupportedPlatform</key>
+			<string>linux</string>
 		</dict>
 	</array>
 	<key>CFBundlePackageType</key>
