@@ -4,6 +4,43 @@
 import Foundation
 import PackageDescription
 
+// ---------------------------------------------------------------------------
+// Linux: resolve the pre-built static library from the XCFramework directory.
+// SwiftPM on Linux does not support .binaryTarget / XCFrameworks, so we use a
+// regular .target that provides the C headers + module map and link the
+// pre-built .a via linker settings.
+// ---------------------------------------------------------------------------
+#if os(Linux)
+    let packageDir = URL(fileURLWithPath: #file).deletingLastPathComponent().path
+
+    #if arch(x86_64)
+        let linuxArchDir = "linux-x86_64"
+    #elseif arch(arm64)
+        let linuxArchDir = "linux-aarch64"
+    #else
+        #error("Unsupported Linux architecture – only x86_64 and arm64 are supported.")
+    #endif
+
+    let linuxLibSearchPath = "\(packageDir)/Sources/CLibsql/CLibsql.xcframework/\(linuxArchDir)"
+
+    let cLibsqlTarget: Target = .target(
+        name: "CLibsql",
+        path: "Sources/CLibsqlLinux",
+        publicHeadersPath: "include",
+        linkerSettings: [
+            .unsafeFlags([
+                "-L\(linuxLibSearchPath)",
+                "-llibsql",
+            ]),
+        ]
+    )
+#else
+    let cLibsqlTarget: Target = .binaryTarget(
+        name: "CLibsql",
+        path: "Sources/CLibsql/CLibsql.xcframework"
+    )
+#endif
+
 var package = Package(
     name: "Libsql",
     platforms: [.iOS(.v12), .macOS(.v10_13)],
@@ -17,10 +54,7 @@ var package = Package(
     ],
     targets: [
         .target(name: "Libsql", dependencies: ["CLibsql"]),
-        .binaryTarget(
-            name: "CLibsql",
-            path: "Sources/CLibsql/CLibsql.xcframework"
-        ),
+        cLibsqlTarget,
         .testTarget(name: "LibsqlTests", dependencies: ["Libsql"]),
 
         // Examples
