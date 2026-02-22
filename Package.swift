@@ -5,7 +5,7 @@ import Foundation
 import PackageDescription
 
 // ---------------------------------------------------------------------------
-// Linux: resolve the pre-built static library from the XCFramework directory.
+// Linux: resolve the pre-built static library from the CLibsqlLinuxLibs directory.
 // SwiftPM on Linux does not support .binaryTarget / XCFrameworks, so we use a
 // regular .target that provides the C headers + module map and link the
 // pre-built .a via linker settings.
@@ -21,7 +21,7 @@ import PackageDescription
         #error("Unsupported Linux architecture – only x86_64 and arm64 are supported.")
     #endif
 
-    let linuxLibSearchPath = "\(packageDir)/Sources/CLibsql/CLibsql.xcframework/\(linuxArchDir)"
+    let linuxLibSearchPath = "\(packageDir)/Sources/CLibsqlLinuxLibs/\(linuxArchDir)"
 
     let cLibsqlTarget: Target = .target(
         name: "CLibsql",
